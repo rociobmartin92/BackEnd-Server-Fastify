@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
 
-const Cats = mongoose.Schema({
+const Cats = new Schema({
   race: {
     type: String,
     require: true,
@@ -13,5 +13,4 @@ const Cats = mongoose.Schema({
   },
 });
 
-
-exports.Cats = mongoose.model("Cats", Cats)
+module.exports = model("Cats", Cats);

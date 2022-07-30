@@ -1,3 +1,4 @@
+const boom = require("boom");
 const Cats = require("../models/cats");
 
 const getCats = async (request, reply) => {

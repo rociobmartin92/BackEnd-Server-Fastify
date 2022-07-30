@@ -26,7 +26,7 @@ const routes = [
   {
     method: "PUT",
     url: "/cats/:id",
-    handler: catController.updateCat
+    handler: catController.updateCat,
   },
 ];
 
