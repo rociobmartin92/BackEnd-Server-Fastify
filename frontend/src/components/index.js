@@ -32,7 +32,9 @@ const Home = () => {
     };
     console.log(newData);
     axios
-      .post('http://localhost:3000/cats', newData)
+      .post('http://localhost:3000/cats', newData, {
+        'Content-Type': 'text/plain',
+      })
       .then(response => console.log(response))
       .catch(e => console.log(e));
   };

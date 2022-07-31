@@ -1,9 +1,6 @@
 // Basic Server
-
 const fastify = require("fastify")({ logger: true });
 // Logger is to know the petitions that comming from the server
-
-
 const cats_routes = require("./routes/cats_routes");
 
 // Conect this server to database
@@ -15,6 +12,7 @@ cats_routes.map((route) => {
   fastify.route(route);
 });
 
+// Middlewears
 
 // Call the server
 const port = process.env.PORT || 3000;

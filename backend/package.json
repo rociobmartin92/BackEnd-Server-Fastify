@@ -9,6 +9,7 @@
   "author": "Rocio <martinrocio.1992@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@fastify/cors": "7.0.0",
     "boom": "^7.3.0",
     "dotenv": "^16.0.1",
     "fastify": "^4.3.0",
