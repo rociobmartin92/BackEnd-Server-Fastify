@@ -66,11 +66,26 @@ const Home = () => {
       .catch(e => console.log(e));
   };
 
-  const deleteData = () => {
+  const deleteData = id => {
     axios
-      .delete(`${baseURL}cats/:id`)
+      .delete(`${baseURL}cats/${id}`)
       .then(response => {
         console.log(response);
+      })
+      .catch(e => console.log(e));
+  };
+
+  const updateData = id => {
+    const newData = {
+      race: race,
+      origin: origin,
+      image: images.path,
+    };
+
+    axios
+      .put(`${baseURL}cats/${id}`, newData)
+      .then(response => {
+        console.log(response.data);
       })
       .catch(e => console.log(e));
   };
@@ -118,7 +133,12 @@ const Home = () => {
         <ScrollView style={styles.scroll}>
           {showCats &&
             data.map(cat => (
-              <CatList key={cat._id} data={cat} deleteData={deleteData} />
+              <CatList
+                key={cat._id}
+                data={cat}
+                deleteData={deleteData}
+                updateData={updateData}
+              />
             ))}
         </ScrollView>
         {showCats && (
