@@ -83,7 +83,7 @@ const Home = () => {
             title="See al cats"
             onPress={() => getData()}
             marginTop={10}
-            color="#2E4053"
+            color="#846a5b"
           />
         </View>
       </View>
@@ -102,8 +102,8 @@ const styles = StyleSheet.create({
   title: {fontSize: 22, color: 'black', marginTop: 15},
   label: {fontSize: 18, color: 'black'},
   view: {alignItems: 'center'},
-  button: {width: 80, marginTop: 15},
-  buttonTwo: {width: 110, marginTop: 15},
+  button: {alignSelf: 'center', width: 80, marginTop: 20},
+  buttonTwo: {marginTop: 50, borderRadius: 35, width: 270},
 });
 
 export default Home;

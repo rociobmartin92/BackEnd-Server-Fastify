@@ -3,8 +3,11 @@ const fastify = require("fastify")({ logger: true });
 // Logger is to know the petitions that comming from the server
 const cats_routes = require("./routes/cats_routes");
 
-// Conect this server to database
+// CORs
+const cors = require("@fastify/cors");
+fastify.register(cors, {});
 
+// Conect this server to database
 require("./utilities/database");
 
 // Call the routes
