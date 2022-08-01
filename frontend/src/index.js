@@ -1,7 +1,17 @@
-import {View, Text, TextInput, StyleSheet, Button} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Button,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import React, {useState} from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
 import axios from 'axios';
+import baseURL from './connectionserver/baseURL';
+import CatList from './CatList';
 
 const initialState = {
   race: '',
@@ -9,10 +19,14 @@ const initialState = {
   image: '',
 };
 
+const {height} = Dimensions.get('window');
+
 const Home = () => {
   const [race, setRace] = useState('');
   const [origin, setOrigin] = useState('');
   const [images, setImages] = useState('');
+  const [data, setData] = useState();
+  const [showCats, setShowCats] = useState(false);
 
   const uploadImage = () => {
     ImagePicker.openPicker({
@@ -32,17 +46,32 @@ const Home = () => {
     };
     console.log(newData);
     axios
-      .post('http://localhost:3000/cats', newData, {
+      .post(`${baseURL}cats`, newData, {
         'Content-Type': 'text/plain',
       })
-      .then(response => console.log(response))
+      .then(response => {
+        console.log(response.data);
+      })
       .catch(e => console.log(e));
   };
 
   const getData = () => {
     axios
-      .get('http://localhost:3000/cats')
-      .then(response => console.log(response))
+      .get(`${baseURL}cats`)
+      .then(response => {
+        console.log(response.data);
+        setData(response.data);
+        setShowCats(true);
+      })
+      .catch(e => console.log(e));
+  };
+
+  const deleteData = () => {
+    axios
+      .delete(`${baseURL}cats/:id`)
+      .then(response => {
+        console.log(response);
+      })
       .catch(e => console.log(e));
   };
 
@@ -86,6 +115,15 @@ const Home = () => {
             color="#846a5b"
           />
         </View>
+        <ScrollView style={styles.scroll}>
+          {showCats &&
+            data.map(cat => (
+              <CatList key={cat._id} data={cat} deleteData={deleteData} />
+            ))}
+        </ScrollView>
+        {showCats && (
+          <Button onPress={() => setShowCats(false)} title="Close" />
+        )}
       </View>
     </View>
   );
@@ -101,9 +139,11 @@ const styles = StyleSheet.create({
   },
   title: {fontSize: 22, color: 'black', marginTop: 15},
   label: {fontSize: 18, color: 'black'},
-  view: {alignItems: 'center'},
+  view: {alignItems: 'center', height: height - 100},
   button: {alignSelf: 'center', width: 80, marginTop: 20},
-  buttonTwo: {marginTop: 50, borderRadius: 35, width: 270},
+  buttonTwo: {marginTop: 50, borderRadius: 25, width: 270},
+  scroll: {marginTop: 20, marginBottom: 10},
+  width: '100%',
 });
 
 export default Home;
